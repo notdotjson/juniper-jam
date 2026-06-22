@@ -1,63 +1,66 @@
 extends CharacterBody3D
 
+const MAX_SPEED = 3
+const JUMP_SPEED = 3
+const ACCELERATION = 4
+const DECELERATION = 4
+const LOOK_SENS = 0.002
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
 @onready var camera = $"Camera3D"
+@onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var camlook = 0.0
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+func _physics_process(delta):
+	if Input.is_action_just_pressed(&"quit"):
+		get_tree().quit()
+	if position.y < -6:
+		position = Vector3(0, 1, 0)
+	
+	var move_dir = Vector3()
+	if(is_on_floor()):
+		move_dir.x = Input.get_axis(&"move_left", &"move_right")
+		move_dir.z = Input.get_axis(&"move_forward", &"move_backward")
+	
+	var cam_basis = camera.global_transform.basis
+	cam_basis = cam_basis.rotated(cam_basis.x, -cam_basis.get_euler().x)
+	move_dir = cam_basis * move_dir
+	
 
-func _physics_process(delta: float) -> void:
-
-	# reset position when falling off world
-	if position.y <= -15:
-		position = Vector3(0, 3, 0)
-
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var user_input := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var movement_direction := (transform.basis * Vector3(user_input.x, 0, user_input.y)).normalized()
-
-	if movement_direction:
-		velocity.x = movement_direction.x * SPEED
-		velocity.z = movement_direction.z * SPEED
+	if move_dir.length_squared() > 1:
+		move_dir /= move_dir.length()
+	
+	velocity.y += delta * gravity
+	
+	var hvel = velocity
+	hvel.y = 0
+	
+	var target = move_dir * MAX_SPEED
+	if(Input.is_action_pressed("run")):
+		target = move_dir * MAX_SPEED * 2
+	var accel
+	if move_dir.dot(hvel) > 0:
+		accel = ACCELERATION
 	else:
-		#velocity = Vector3(move_toward(velocity.x, 0, SPEED), velocity.y, move_toward(velocity.z, 0, SPEED))
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		accel = DECELERATION
+	
+	hvel = hvel.lerp(target, accel * delta)
+	
+	velocity.x = hvel.x
+	velocity.z = hvel.z
+	
+	if is_on_floor() and Input.is_action_just_pressed(&"jump"):
+		velocity.y += JUMP_SPEED
 
-	#var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#if direction:
-	#	velocity.x = direction.x * SPEED
-	#	velocity.z = direction.z * SPEED
-	#else:
-	#	velocity.x = move_toward(velocity.x, 0, SPEED)
-	#	velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
 	move_and_slide()
+	
+	
 
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			rotate_y(deg_to_rad(-event.relative.x * 0.3))
-			camlook -= event.relative.y * 0.3
-			camlook = clamp (camlook, -80, 80)
-			camera.rotation_degrees.x = camlook
-			#camera.rotate_x(deg_to_rad(-event.relative.y * 0.3))
-
-	if event is InputEventKey:
-		if event.keycode == KEY_ESCAPE:
-			get_tree().quit()
+		rotate_y(-event.relative.x * LOOK_SENS)
+		camera.rotate_x(-event.relative.y * LOOK_SENS)
+		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
