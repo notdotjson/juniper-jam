@@ -1,0 +1,29 @@
+GAME IDEAS...
+
+Theme: Spin 2 Win
+
+Some sort of Shift-like game (flash era) that has you switching
+from top to bottom or side to side
+
+Some sort of spinning generator type game? No clue how this would work
+but it does have to spin for you to win...
+
+Spin/switch between like 1, 2, 4 ,8 sides to prevent catastrophe
+Maybe enemies could be falling into you from the edge of the screen, could
+have sort of like a PvZ gameplay style...
+
+Some game that involves rolling dice/testing for luck to get upgrades and
+downgrades...
+
+Lil dungeon-type game where at the end of every level you have to take
+weighted risks or do some sort of lootboxy/gamble-y roll (slot machine etc)
+
+Some sort of puzzle game where the world is generated and you can choose to 
+reroll certain generation events, or have items that reroll parts of the
+world...
+
+Controlled randomness, game where you have to get to the exit and can reroll
+properties of the game world (from small stuff like individual object
+dimensions to large things like gravity or material...)
+
+Prototype controlled randomness game!!!
