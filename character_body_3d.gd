@@ -24,10 +24,10 @@ func _physics_process(delta):
 
 	if _lockout:
 		if basis != _target:
-			basis = lerp(basis, _target, "0.05")
+			basis = lerp(basis, _target, 0.1)
 			_rotation_timer += delta
 			print("rotating!! t: ", _rotation_timer)
-		if _rotation_timer >= 1.8:
+		if _rotation_timer >= 1:
 			basis = _target
 			_rotation_timer = 0.0
 			_lockout = false
@@ -89,9 +89,10 @@ func _physics_process(delta):
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * LOOK_SENS)
+		global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
 		camera.rotate_x(-event.relative.y * LOOK_SENS)
 		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
+		pass
 	if !_lockout:
 		if event.is_action_pressed("rotate_map_forward"):
 			_target = _target.rotated(Vector3.FORWARD, deg_to_rad(-90))
