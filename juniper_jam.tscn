@@ -1,44 +1,109 @@
 [gd_scene format=3 uid="uid://dtbubbuvxaw8n"]
 
 [ext_resource type="PackedScene" uid="uid://c45hbywypcshp" path="res://Models/pillartest.blend" id="1_ed12d"]
+[ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://level_controller.gd" id="1_yu335"]
 [ext_resource type="PackedScene" uid="uid://cyk8wuw4mogap" path="res://Models/bigsquaretest.blend" id="2_glu4d"]
 [ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://playertest.tscn" id="3_lmnfe"]
 
 [node name="Juniper Jam" type="Node3D" unique_id=1019581753]
 
-[node name="Level" type="Node3D" parent="." unique_id=456588065]
+[node name="Level" type="Node3D" parent="." unique_id=1107458415]
+script = ExtResource("1_yu335")
 
-[node name="pillartest-1" parent="Level" unique_id=1208279232 instance=ExtResource("1_ed12d")]
+[node name="middle" type="Node3D" parent="Level" unique_id=539656589]
+
+[node name="pillartest-1" parent="Level/middle" unique_id=1208279232 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -0.90031075, -3)
 
-[node name="pillartest-2" parent="Level" unique_id=612314489 instance=ExtResource("1_ed12d")]
+[node name="pillartest-2" parent="Level/middle" unique_id=612314489 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0996892, -3)
 
-[node name="pillartest-3" parent="Level" unique_id=674152871 instance=ExtResource("1_ed12d")]
+[node name="pillartest-3" parent="Level/middle" unique_id=674152871 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.9003108, -3)
 
-[node name="pillartest-4" parent="Level" unique_id=1366777959 instance=ExtResource("1_ed12d")]
+[node name="pillartest-4" parent="Level/middle" unique_id=1366777959 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1.9003108, 0)
 
-[node name="pillartest-5" parent="Level" unique_id=1879539073 instance=ExtResource("1_ed12d")]
+[node name="pillartest-5" parent="Level/middle" unique_id=1879539073 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90031075, 0)
 
-[node name="pillartest-6" parent="Level" unique_id=810671824 instance=ExtResource("1_ed12d")]
+[node name="pillartest-6" parent="Level/middle" unique_id=810671824 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.90031075, 0)
 
-[node name="pillartest-7" parent="Level" unique_id=941098287 instance=ExtResource("1_ed12d")]
+[node name="pillartest-7" parent="Level/middle" unique_id=941098287 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.099689245, 3)
 
-[node name="pillartest-8" parent="Level" unique_id=146734000 instance=ExtResource("1_ed12d")]
+[node name="pillartest-8" parent="Level/middle" unique_id=146734000 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90031075, 3)
 
-[node name="pillartest-9" parent="Level" unique_id=587771949 instance=ExtResource("1_ed12d")]
+[node name="pillartest-9" parent="Level/middle" unique_id=587771949 instance=ExtResource("1_ed12d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.9003108, 3)
 
-[node name="bigsquaretest" parent="Level" unique_id=1222626182 instance=ExtResource("2_glu4d")]
+[node name="bigsquaretest" parent="Level/middle" unique_id=1222626182 instance=ExtResource("2_glu4d")]
 
-[node name="bigsquaretest2" parent="Level" unique_id=102207304 instance=ExtResource("2_glu4d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.154131, 0, 0)
+[node name="left" type="Node3D" parent="Level" unique_id=568530145]
+
+[node name="pillartest-1" parent="Level/left" unique_id=840889801 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 21, -7.9003105, -3)
+
+[node name="pillartest-2" parent="Level/left" unique_id=1892098726 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 19, -4.9003105, -3)
+
+[node name="pillartest-3" parent="Level/left" unique_id=901303785 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 22, -1.9003105, -3)
+
+[node name="pillartest-4" parent="Level/left" unique_id=194502936 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 22, -7.9003105, 0)
+
+[node name="pillartest-5" parent="Level/left" unique_id=227691053 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 21, -4.9003105, 0)
+
+[node name="pillartest-6" parent="Level/left" unique_id=464731264 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 21, -1.9003105, 0)
+
+[node name="pillartest-7" parent="Level/left" unique_id=98416317 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 20, -7.9003105, 3)
+
+[node name="pillartest-8" parent="Level/left" unique_id=644092446 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 21, -4.9003105, 3)
+
+[node name="pillartest-9" parent="Level/left" unique_id=33077808 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 22, -1.9003105, 3)
+
+[node name="bigsquaretest" parent="Level/left" unique_id=102207304 instance=ExtResource("2_glu4d")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 21.15413, 0, 0)
+
+[node name="right" type="Node3D" parent="Level" unique_id=1296434827]
+
+[node name="pillartest-1" parent="Level/right" unique_id=1702060407 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -22, -2.9003105, -3)
+
+[node name="pillartest-2" parent="Level/right" unique_id=359260234 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -20, -5.9003105, -3)
+
+[node name="pillartest-3" parent="Level/right" unique_id=1173968394 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -23, -8.9003105, -3)
+
+[node name="pillartest-4" parent="Level/right" unique_id=1302960054 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -23, -2.9003105, 0)
+
+[node name="pillartest-5" parent="Level/right" unique_id=1558104348 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -22, -5.9003105, 0)
+
+[node name="pillartest-6" parent="Level/right" unique_id=1742162621 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -22, -8.9003105, 0)
+
+[node name="pillartest-7" parent="Level/right" unique_id=2125424113 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -21, -2.9003105, 3)
+
+[node name="pillartest-8" parent="Level/right" unique_id=1788102246 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -22, -5.9003105, 3)
+
+[node name="pillartest-9" parent="Level/right" unique_id=450659581 instance=ExtResource("1_ed12d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -23, -8.9003105, 3)
+
+[node name="bigsquaretest" parent="Level/right" unique_id=1368943372 instance=ExtResource("2_glu4d")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -21.84587, 0, 0)
 
 [node name="Playertest" parent="." unique_id=215538288 instance=ExtResource("3_lmnfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
