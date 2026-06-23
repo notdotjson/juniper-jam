@@ -8,9 +8,10 @@ const LOOK_SENS = 0.002
 
 var _old_move_dir = Vector3.ZERO
 
-var _target = basis
 var _lockout = false
-var _rotation_timer = 0.0
+var _target_angle = 90.0
+var _deg_to_target = 90.0
+var _angle_increm = 5.0
 
 #var debug_count = 0
 
@@ -23,15 +24,14 @@ func _ready():
 func _physics_process(delta):
 
 	if _lockout:
-		if basis != _target:
-			basis = lerp(basis, _target, 0.1)
-			_rotation_timer += delta
-			print("rotating!! t: ", _rotation_timer)
-		if _rotation_timer >= 1:
-			basis = _target
-			_rotation_timer = 0.0
+		if _deg_to_target != _target_angle:
+			global_rotate(Vector3.BACK, deg_to_rad(_angle_increm))
+			_deg_to_target += _angle_increm
+			print("rotating!! degrees to target: ", _deg_to_target)
+		elif _deg_to_target == _target_angle:
 			_lockout = false
 			print("rotation finished, lockout cleared!")
+
 
 
 	if Input.is_action_just_pressed(&"quit"):
@@ -94,10 +94,15 @@ func _input(event: InputEvent) -> void:
 		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 		pass
 	if !_lockout:
-		if event.is_action_pressed("rotate_map_forward"):
-			_target = _target.rotated(Vector3.FORWARD, deg_to_rad(-90))
-			_lockout = true
-			print("action detected, locked out of rotation!")
+			if event.is_action_pressed("rotate_map_forward"):
+				_deg_to_target = 0.0
+				_lockout = true
+				print("action detected, locked out of rotation!")
+	#if !_lockout:
+		#if event.is_action_pressed("rotate_map_forward"):
+			#_target = _target.rotated(Vector3.BACK, deg_to_rad(-90))
+			#_lockout = true
+			#print("action detected, locked out of rotation!")
 	if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
 		
