@@ -1,9 +1,10 @@
 extends CharacterBody3D
 
 const MAX_SPEED = 3
-const JUMP_SPEED = 5
-const ACCELERATION = 4
-const DECELERATION = 4
+const RUN_MOD = 1.5
+const JUMP_SPEED = 3
+const ACCELERATION = 2
+const DECELERATION = 3
 const LOOK_SENS = 0.002
 
 var _old_move_dir = Vector3.ZERO
@@ -11,7 +12,7 @@ var _old_move_dir = Vector3.ZERO
 var _lockout = false
 var _target_angle = 90.0
 var _deg_to_target = 90.0
-var _angle_increm = 5.0
+var _angle_increm = 2.5
 
 #var debug_count = 0
 
@@ -34,10 +35,12 @@ func _physics_process(delta):
 
 	#if position.y < -50:
 		#position = Vector3(0, 1, 0)
+
 	
 	var move_dir = Vector3()
-	move_dir.x = Input.get_axis(&"move_left", &"move_right")
-	move_dir.z = Input.get_axis(&"move_forward", &"move_backward")
+	if is_on_floor():
+		move_dir.x = Input.get_axis(&"move_left", &"move_right")
+		move_dir.z = Input.get_axis(&"move_forward", &"move_backward")
 	
 	var cam_basis = camera.global_transform.basis
 	cam_basis = cam_basis.rotated(cam_basis.x, -cam_basis.get_euler().x)
@@ -54,7 +57,7 @@ func _physics_process(delta):
 	
 	var target = _old_move_dir * MAX_SPEED
 	if Input.is_action_pressed("run"):
-		target = _old_move_dir * MAX_SPEED * 2
+		target = _old_move_dir * MAX_SPEED * RUN_MOD
 	var accel
 	if _old_move_dir.dot(hvel) > 0:
 		accel = ACCELERATION
@@ -70,16 +73,12 @@ func _physics_process(delta):
 	
 	if is_on_floor() and Input.is_action_just_pressed(&"jump"):
 		velocity.y = JUMP_SPEED
-		#print("new jump! = ", velocity)
-		#debug_count = 0
-	#elif !is_on_floor():
-		#debug_count += 1
-		#print("physics step: ", debug_count, " = ", velocity)
 		
 	
 	move_and_slide()
 
-	_old_move_dir = move_dir
+	if is_on_floor():
+		_old_move_dir = move_dir
 	
 	
 

@@ -1,25 +1,23 @@
 [gd_scene format=3 uid="uid://dtbubbuvxaw8n"]
 
-[ext_resource type="PackedScene" uid="uid://dfi0khj0maq15" path="res://test1.tscn" id="1_7enwa"]
 [ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://level_controller.gd" id="1_yu335"]
+[ext_resource type="PackedScene" uid="uid://cr20neklve4od" path="res://Models/test_textured.blend" id="2_lmnfe"]
 [ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://playertest.tscn" id="3_lmnfe"]
 
 [node name="Juniper Jam" type="Node3D" unique_id=1019581753]
 
-[node name="Level" parent="." unique_id=2002037314 instance=ExtResource("1_7enwa")]
+[node name="Level" type="Node3D" parent="." unique_id=1568383054]
 script = ExtResource("1_yu335")
 
-[node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.811535, 0)
+[node name="test_textured" parent="Level" unique_id=1741201682 instance=ExtResource("2_lmnfe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0001783371, 0.012169838, -0.0023493767)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=911965876]
+[node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8115349, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=911965876]
 transform = Transform3D(1, 0, 0, 0, 0.9525124, 0.3044999, 0, -0.3044999, 0.9525124, 0, 8, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=701730697]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1925826, 0)
-omni_range = 100.0
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1397084965]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
-
-[editable path="Level"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Level" unique_id=701730697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1925826, 0)
+omni_range = 10.0

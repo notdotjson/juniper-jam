@@ -2,7 +2,7 @@ extends Node3D
 
 var _target_angle = 90.0
 var _deg_to_target = 90.0
-var _angle_increm = 5.0
+var _angle_increm = 2.5
 var _lockout = false
 
 # Called when the node enters the scene tree for the first time.
