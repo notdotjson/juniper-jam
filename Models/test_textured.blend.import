@@ -41,6 +41,11 @@ materials/extract_format=0
 materials/extract_path="res://Materials"
 _subresources={
 "materials": {
+"Concrete031_1K-PNG_NORMAL": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://Materials/Concrete031_1K-PNG_NORMAL.tres",
+"use_external/path": "uid://b7alxw1elkjd6"
+},
 "Ground": {
 "use_external/enabled": true,
 "use_external/fallback_path": "res://Materials/Ground.tres",

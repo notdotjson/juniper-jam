@@ -13,11 +13,19 @@ script = ExtResource("1_yu335")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0001783371, 0.012169838, -0.0023493767)
 
 [node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8115349, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3115349, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=911965876]
 transform = Transform3D(1, 0, 0, 0, 0.9525124, 0.3044999, 0, -0.3044999, 0.9525124, 0, 8, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Level" unique_id=701730697]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1925826, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, 0)
+omni_range = 10.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Level" unique_id=1677281447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, -9)
+omni_range = 10.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Level" unique_id=462048614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, -19)
 omni_range = 10.0
