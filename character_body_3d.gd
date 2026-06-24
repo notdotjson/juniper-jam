@@ -19,7 +19,7 @@ var _angle_increm = 5.0
 @onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
 
 func _physics_process(delta):
 
@@ -32,10 +32,6 @@ func _physics_process(delta):
 			_lockout = false
 			print("rotation finished, lockout cleared!")
 
-
-
-	if Input.is_action_just_pressed(&"quit"):
-		get_tree().quit()
 	#if position.y < -50:
 		#position = Vector3(0, 1, 0)
 	
@@ -88,22 +84,26 @@ func _physics_process(delta):
 	
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
-		camera.rotate_x(-event.relative.y * LOOK_SENS)
-		camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
-		pass
-	if !_lockout:
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if event is InputEventMouseMotion:
+			global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
+			camera.rotate_x(-event.relative.y * LOOK_SENS)
+			camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
+			pass
+		if !_lockout:
 			if event.is_action_pressed("rotate_map_forward"):
 				_deg_to_target = 0.0
 				_lockout = true
 				print("action detected, locked out of rotation!")
-	#if !_lockout:
-		#if event.is_action_pressed("rotate_map_forward"):
-			#_target = _target.rotated(Vector3.BACK, deg_to_rad(-90))
-			#_lockout = true
-			#print("action detected, locked out of rotation!")
-	if event.is_action_pressed("debug_respawn"):
+		#if !_lockout:
+			#if event.is_action_pressed("rotate_map_forward"):
+				#_target = _target.rotated(Vector3.BACK, deg_to_rad(-90))
+				#_lockout = true
+				#print("action detected, locked out of rotation!")
+		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
-		
+		if event.is_action_pressed("quit"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	elif event is InputEventMouseButton:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			
