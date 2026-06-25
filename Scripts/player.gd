@@ -1,15 +1,21 @@
 extends CharacterBody3D
 
-const MAX_SPEED = 3
-const RUN_MOD = 1.5
-const JUMP_SPEED = 3
-const ACCELERATION = 2
-const DECELERATION = 3
-const LOOK_SENS = 0.002
+const MAX_SPEED := 3.0
+const RUN_MOD := 1.5
+const JUMP_SPEED := 3.0
+const ACCELERATION := 2.0
+const DECELERATION := 3.0
+const LOOK_SENS := 0.002
 
-var old_move_dir = Vector3.ZERO
+var old_move_dir := Vector3.ZERO
 
 var rotation_sync: RotationSynchronizer
+
+
+#TODO: move to rotation_synch.gd mayb
+var timed_rotation := false
+var timer := 0.0
+const TARGET_TIME := 5.0
 
 @onready var camera = $"Camera3D"
 @onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -18,6 +24,18 @@ func _ready():
 	rotation_sync = RotationSynchronizer.new()
 
 func _physics_process(_delta):
+
+	#TODO: ditto
+	if(timed_rotation):
+		timer += _delta
+		print(timer, " | ", _delta)
+		if(timer >= TARGET_TIME):
+			print("target time hit!")
+			rotation_sync.begin_rotation(-rotation_sync.rotation_axis)
+			timed_rotation = false
+			timer = 0.0
+
+
 	if rotation_sync.is_rotating:
 		rotation_sync.step()
 		global_rotate(-rotation_sync.rotation_axis, rotation_sync.get_tick_radians())
@@ -105,6 +123,11 @@ func _input(event: InputEvent) -> void:
 				rotation_sync.begin_rotation(-cam_basis_x)
 			elif event.is_action_pressed("rotate_map_backward"):
 				rotation_sync.begin_rotation(cam_basis_x)
+
+			if(!timed_rotation):
+				if event.is_action_pressed("rotate_map_interaction"):
+					rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
+					timed_rotation = true
 
 			#if event.is_action_pressed("rotate_map_left"):
 			#	rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
