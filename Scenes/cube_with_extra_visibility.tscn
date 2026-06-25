@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ch5hxt4aslxgi"]
+
+[ext_resource type="PackedScene" uid="uid://c77iboe64rhk2" path="res://Models/cubetest.blend" id="1_kbgh2"]
+
+[node name="cubetest" unique_id=1877916691 instance=ExtResource("1_kbgh2")]
+
+[node name="BackPanel5" parent="." index="43" unique_id=1329353127]
+visible = false
+
+[node name="BackPanel6" parent="." index="46" unique_id=2110149929]
+visible = false
+
+[node name="BackPanel3" parent="." index="47" unique_id=1317980516]
+visible = false

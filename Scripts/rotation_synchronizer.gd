@@ -16,7 +16,7 @@ func _init() -> void:
 
 func get_quaternion(is_player: bool = false) -> Quaternion:
 	if is_player:
-		return Quaternion.from_euler(direction * deg_to_rad(-increment))
+		return Quaternion.from_euler(-direction * deg_to_rad(increment))
 	return Quaternion.from_euler(direction * deg_to_rad(increment))
 
 func begin_rotation(rotation_direction: Vector3) -> void:
