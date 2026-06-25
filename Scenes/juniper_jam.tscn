@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dtbubbuvxaw8n"]
 
-[ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://level_controller.gd" id="1_yu335"]
+[ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://Scripts/level_controller.gd" id="1_yu335"]
 [ext_resource type="PackedScene" uid="uid://cr20neklve4od" path="res://Models/test_textured.blend" id="2_lmnfe"]
-[ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://playertest.tscn" id="3_lmnfe"]
+[ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://Scenes/playertest.tscn" id="3_lmnfe"]
 
 [node name="Juniper Jam" type="Node3D" unique_id=1019581753]
 

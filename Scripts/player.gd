@@ -9,7 +9,7 @@ const LOOK_SENS = 0.002
 
 var _old_move_dir = Vector3.ZERO
 
-var _lockout = false
+var _is_rotating = false
 var _target_angle = 90.0
 var _deg_to_target = 90.0
 var _angle_increm = 2.5
@@ -19,19 +19,19 @@ var _angle_increm = 2.5
 @onready var camera = $"Camera3D"
 @onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 
+
+
 func _ready():
 	pass
 
 func _physics_process(delta):
-
-	if _lockout:
+	if _is_rotating:
 		if _deg_to_target != _target_angle:
 			global_rotate(Vector3.BACK, deg_to_rad(_angle_increm))
 			_deg_to_target += _angle_increm
-			print("rotating!! degrees to target: ", _deg_to_target)
 		elif _deg_to_target == _target_angle:
-			_lockout = false
-			print("rotation finished, lockout cleared!")
+			_is_rotating = false
+
 
 	#if position.y < -50:
 		#position = Vector3(0, 1, 0)
@@ -89,16 +89,11 @@ func _input(event: InputEvent) -> void:
 			camera.rotate_x(-event.relative.y * LOOK_SENS)
 			camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 			pass
-		if !_lockout:
+		if !_is_rotating:
 			if event.is_action_pressed("rotate_map_forward"):
 				_deg_to_target = 0.0
-				_lockout = true
+				_is_rotating = true
 				print("action detected, locked out of rotation!")
-		#if !_lockout:
-			#if event.is_action_pressed("rotate_map_forward"):
-				#_target = _target.rotated(Vector3.BACK, deg_to_rad(-90))
-				#_lockout = true
-				#print("action detected, locked out of rotation!")
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
 		if event.is_action_pressed("quit"):
