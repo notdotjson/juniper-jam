@@ -20,9 +20,10 @@ static var direction: Vector3
 
 func _init() -> void:
 	target = 90.0
-	increment = 2.5
+	increment = 5
 
 func get_tick_radians() -> float:
+	#print(tick)
 	return deg_to_rad(tick)
 
 func get_tick_degrees() -> float:
@@ -38,7 +39,7 @@ func step() -> void:
 	if is_rotating:
 		if deg_to_target != target:
 			tick = increment
-			print("Stepping! from ", deg_to_target, " degrees, to ", target, " degrees.")
+			#print("Stepping! from ", deg_to_target, " degrees, to ", target, " degrees.")
 			deg_to_target += increment
 		elif deg_to_target == target:
 			tick = 0.0

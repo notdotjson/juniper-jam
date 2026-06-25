@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dtbubbuvxaw8n"]
 
 [ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://Scripts/level_controller.gd" id="1_yu335"]
-[ext_resource type="PackedScene" uid="uid://cr20neklve4od" path="res://Models/test_textured.blend" id="2_lmnfe"]
+[ext_resource type="PackedScene" uid="uid://c77iboe64rhk2" path="res://Models/cubetest.blend" id="2_a8cxy"]
 [ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://Scenes/playertest.tscn" id="3_lmnfe"]
 
 [node name="Juniper Jam" type="Node3D" unique_id=1019581753]
@@ -9,8 +9,7 @@
 [node name="Level" type="Node3D" parent="." unique_id=1568383054]
 script = ExtResource("1_yu335")
 
-[node name="test_textured" parent="Level" unique_id=1741201682 instance=ExtResource("2_lmnfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0001783371, 0.012169838, -0.0023493767)
+[node name="cubetest" parent="Level" unique_id=914546124 instance=ExtResource("2_a8cxy")]
 
 [node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3115349, 0)
@@ -29,3 +28,6 @@ omni_range = 10.0
 [node name="OmniLight3D3" type="OmniLight3D" parent="Level" unique_id=462048614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, -19)
 omni_range = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=719346815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.569649)
