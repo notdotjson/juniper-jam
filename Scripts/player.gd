@@ -20,8 +20,13 @@ func _ready():
 func _physics_process(_delta):
 	if rotation_sync.is_rotating:
 		rotation_sync.step()
-		global_rotate(-rotation_sync.direction, rotation_sync.get_tick_radians())
-		print(global_transform.basis)
+		global_rotate(-rotation_sync.rotation_axis, rotation_sync.get_tick_radians())
+		if(rotation_sync.get_tick_degrees() == 0.0):
+			var eul_basis = global_basis.get_euler()
+			print(Vector3(rad_to_deg(eul_basis.x), rad_to_deg(eul_basis.y), rad_to_deg(eul_basis.z)))
+			global_basis = Basis.from_euler(Vector3(eul_basis.x, eul_basis.y, 0.0))
+
+		#print(global_transform.basis)
 
 	var move_dir = Vector3()
 	if is_on_floor():
@@ -85,6 +90,7 @@ func _input(event: InputEvent) -> void:
 		
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
+			global_basis = Basis.from_euler(Vector3(0,0,0))
 		
 		if event.is_action_pressed("quit"):
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
