@@ -83,10 +83,10 @@ func _input(event: InputEvent) -> void:
 				rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
 			elif event.is_action_pressed("rotate_map_right"):
 				rotation_sync.begin_rotation(Vector3.MODEL_REAR)
-			#elif event.is_action_pressed("rotate_map_forward"):
-				#rotation_sync.begin_rotation(Vector3.MODEL_LEFT)
-			#elif event.is_action_pressed("rotate_map_backward"):
-				#rotation_sync.begin_rotation(Vector3.MODEL_RIGHT)
+			elif event.is_action_pressed("rotate_map_forward"):
+				rotation_sync.begin_rotation(Vector3.MODEL_LEFT)
+			elif event.is_action_pressed("rotate_map_backward"):
+				rotation_sync.begin_rotation(Vector3.MODEL_RIGHT)
 		
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
