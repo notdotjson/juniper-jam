@@ -24,7 +24,7 @@ func _physics_process(_delta):
 		if(rotation_sync.get_tick_degrees() == 0.0):
 			var eul_basis = global_basis.get_euler()
 			print(Vector3(rad_to_deg(eul_basis.x), rad_to_deg(eul_basis.y), rad_to_deg(eul_basis.z)))
-			global_basis = Basis.from_euler(Vector3(eul_basis.x, eul_basis.y, 0.0))
+			global_basis = Basis.from_euler(Vector3(eul_basis.x, eul_basis.y, 0.0)) #this is kind of a bandaid fix but it'll ship c:
 
 		#print(global_transform.basis)
 
@@ -72,21 +72,48 @@ func _physics_process(_delta):
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+
+		var raw_cam_basis_z = camera.global_transform.basis.z
+		var cam_basis_z := Vector3(round(raw_cam_basis_z.x), round(raw_cam_basis_z.y), round(raw_cam_basis_z.z))
+		if cam_basis_z.length_squared() > 1.0:
+			if cam_basis_z.z > 0:
+				cam_basis_z -= Vector3.MODEL_FRONT
+			elif cam_basis_z.z < 0:
+				cam_basis_z += Vector3.MODEL_FRONT
+
+		var raw_cam_basis_x = camera.global_transform.basis.x
+		var cam_basis_x := Vector3(round(raw_cam_basis_x.x), round(raw_cam_basis_x.y), round(raw_cam_basis_x.z))
+		if cam_basis_x.length_squared() > 1.0:
+			if cam_basis_x.x > 0:
+				cam_basis_x -= Vector3.MODEL_LEFT
+			if cam_basis_x.x < 0:
+				cam_basis_x += Vector3.MODEL_LEFT
 		
 		if event is InputEventMouseMotion:
 			global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
 			camera.rotate_x(-event.relative.y * LOOK_SENS)
 			camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 
+			
+
 		if !rotation_sync.is_rotating:
 			if event.is_action_pressed("rotate_map_left"):
-				rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
+				rotation_sync.begin_rotation(cam_basis_z)
 			elif event.is_action_pressed("rotate_map_right"):
-				rotation_sync.begin_rotation(Vector3.MODEL_REAR)
+				rotation_sync.begin_rotation(-cam_basis_z)
 			elif event.is_action_pressed("rotate_map_forward"):
-				rotation_sync.begin_rotation(Vector3.MODEL_LEFT)
+				rotation_sync.begin_rotation(-cam_basis_x)
 			elif event.is_action_pressed("rotate_map_backward"):
-				rotation_sync.begin_rotation(Vector3.MODEL_RIGHT)
+				rotation_sync.begin_rotation(cam_basis_x)
+
+			#if event.is_action_pressed("rotate_map_left"):
+			#	rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
+			#elif event.is_action_pressed("rotate_map_right"):
+			#	rotation_sync.begin_rotation(Vector3.MODEL_REAR)
+			#elif event.is_action_pressed("rotate_map_forward"):
+			#	rotation_sync.begin_rotation(Vector3.MODEL_LEFT)
+			#elif event.is_action_pressed("rotate_map_backward"):
+			#	rotation_sync.begin_rotation(Vector3.MODEL_RIGHT)
 		
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
