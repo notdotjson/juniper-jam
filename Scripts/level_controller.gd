@@ -7,6 +7,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if rotsync.is_rotating:
+		quaternion *= rotsync.get_quaternion()
 		pass
 		#quaternion = quaternion.slerp(rotsync.get_target_quaternion(), _delta * 10.0)
 		#if quaternion.angle_to(rotsync.get_target_quaternion()) < 0.001:

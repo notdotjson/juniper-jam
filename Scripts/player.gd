@@ -23,7 +23,7 @@ func _ready():
 func _physics_process(_delta):
 	if rotation_sync.is_rotating:
 		rotation_sync.step()
-		quaternion *= rotation_sync.get_quaternion()
+		quaternion *= rotation_sync.get_quaternion(true)
 		
 		
 		

@@ -14,7 +14,9 @@ func _init() -> void:
 	target = 90.0
 	increment = 5.0
 
-func get_quaternion() -> Quaternion:
+func get_quaternion(is_player: bool = false) -> Quaternion:
+	if is_player:
+		return Quaternion.from_euler(direction * deg_to_rad(-increment))
 	return Quaternion.from_euler(direction * deg_to_rad(increment))
 
 func begin_rotation(rotation_direction: Vector3) -> void:
