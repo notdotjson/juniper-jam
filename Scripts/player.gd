@@ -17,14 +17,12 @@ var rotation_sync: RotationSynchronizer
 func _ready():
 	rotation_sync = RotationSynchronizer.new()
 
-
 func _physics_process(_delta):
 	if rotation_sync.is_rotating:
 		rotation_sync.step()
 		global_rotate(-rotation_sync.direction, rotation_sync.get_tick_radians())
 		print(global_transform.basis)
 
-	
 	var move_dir = Vector3()
 	if is_on_floor():
 		move_dir.x = Input.get_axis(&"move_left", &"move_right")
@@ -34,7 +32,6 @@ func _physics_process(_delta):
 	cam_basis = cam_basis.rotated(cam_basis.x, -cam_basis.get_euler().x)
 	move_dir = cam_basis * move_dir
 	
-
 	if move_dir.length_squared() > 1:
 		move_dir /= move_dir.length()
 	
@@ -61,44 +58,15 @@ func _physics_process(_delta):
 	
 	if is_on_floor() and Input.is_action_just_pressed(&"jump"):
 		velocity.y = JUMP_SPEED
-		
 	
 	move_and_slide()
 
 	if is_on_floor():
 		old_move_dir = move_dir
 	
-	
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var raw_cam_basis_z = camera.global_transform.basis.z
-		var cam_basis_z := Vector3(round(raw_cam_basis_z.x), round(raw_cam_basis_z.y), round(raw_cam_basis_z.z))
-		if cam_basis_z.length_squared() > 1.0:
-			if cam_basis_z.z > 0:
-				cam_basis_z -= Vector3.MODEL_FRONT
-			elif cam_basis_z.z < 0:
-				cam_basis_z += Vector3.MODEL_FRONT
-			#if cam_basis_z.y < 0:
-				#cam_basis_z += Vector3.MODEL_TOP
-			#elif cam_basis_z.y > 0:
-				#cam_basis_z -= Vector3.MODEL_TOP
-
-		var raw_cam_basis_x = camera.global_transform.basis.x
-		var cam_basis_x := Vector3(round(raw_cam_basis_x.x), round(raw_cam_basis_x.y), round(raw_cam_basis_x.z))
-		if cam_basis_x.length_squared() > 1.0:
-			if cam_basis_x.x > 0:
-				cam_basis_x -= Vector3.MODEL_LEFT
-			if cam_basis_x.x < 0:
-				cam_basis_x += Vector3.MODEL_LEFT
-
-		#var cam_basis_front = (cam_basis * Vector3.MODEL_FRONT).normalized()
-		#var cam_basis_left = (cam_basis * Vector3.MODEL_LEFT).normalized()
-		#var cam_basis_rear = (cam_basis * Vector3.MODEL_REAR).normalized()
-		#var cam_basis_right = (cam_basis * Vector3.MODEL_RIGHT).normalized()
-
-		#var total_cam_basis = (cam_basis_front * cam_basis_left * cam_basis_rear * cam_basis_right).normalized()
-
 		
 		if event is InputEventMouseMotion:
 			global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
@@ -107,14 +75,13 @@ func _input(event: InputEvent) -> void:
 
 		if !rotation_sync.is_rotating:
 			if event.is_action_pressed("rotate_map_left"):
-				print(cam_basis_z)
-				rotation_sync.begin_rotation(cam_basis_z)
+				rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
 			elif event.is_action_pressed("rotate_map_right"):
-				rotation_sync.begin_rotation(-cam_basis_z)
-			elif event.is_action_pressed("rotate_map_forward"):
-				rotation_sync.begin_rotation(-cam_basis_x)
-			elif event.is_action_pressed("rotate_map_backward"):
-				rotation_sync.begin_rotation(cam_basis_x)
+				rotation_sync.begin_rotation(Vector3.MODEL_REAR)
+			#elif event.is_action_pressed("rotate_map_forward"):
+				#rotation_sync.begin_rotation(Vector3.MODEL_LEFT)
+			#elif event.is_action_pressed("rotate_map_backward"):
+				#rotation_sync.begin_rotation(Vector3.MODEL_RIGHT)
 		
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
@@ -124,10 +91,3 @@ func _input(event: InputEvent) -> void:
 	
 	elif event is InputEventMouseButton:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-#Rotating around axis: (0.0, 0.0, 1.0) | Player's normalized direction is: (-0.025997, -0.004, 0.999654)	front	(0, 0, 1) Vector3.MODEL_FRONT
-#Rotating around axis: (0.0, 0.0, 1.0) | Player's normalized direction is: (0.996238, -0.025997, 0.082674)	left	(1, 0, 0) 
-#Rotating around axis: (0.0, 0.0, 1.0) | Player's normalized direction is: (0.077515, 0.0, -0.996991)		back	(0, 0 -1) Vector3.FORWARD
-#Rotating around axis: (0.0, 0.0, 1.0) | Player's normalized direction is: (-0.999759, 0.012, -0.018387)	right	(-1, 0, 0)
-#Rotating around axis: (0.0, 0.0, 1.0) | Player's normalized direction is: (0.017611, -0.984808, -0.172753)	up		(0 -1, 0)
-#Rotating around axis: (0.0, 0.0, 1.0) | Player's normalized direction is: (0.008608, 0.984808, -0.173435)	down	(0, 1, 0)
