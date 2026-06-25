@@ -1,24 +1,10 @@
 extends Node3D
 
-var _target_angle = 90.0
-var _deg_to_target = 90.0
-var _angle_increm = 2.5
-var _is_rotating = false
+var rotation_sync: RotationSynchronizer
 
 func _ready() -> void:
-	pass
+	rotation_sync = RotationSynchronizer.new()
 
 func _physics_process(delta: float) -> void:
-	if _is_rotating:
-		if _deg_to_target != _target_angle:
-			global_rotate(Vector3.FORWARD, deg_to_rad(_angle_increm))
-			_deg_to_target += _angle_increm
-		elif _deg_to_target == _target_angle:
-			_is_rotating = false
-
-		
-func _input(event: InputEvent) -> void:
-		if !_is_rotating:
-			if event.is_action_pressed("rotate_map_forward"):
-				_deg_to_target = 0.0
-				_is_rotating = true
+	if rotation_sync.is_rotating:
+		global_rotate(rotation_sync.direction, rotation_sync.get_tick_radians())

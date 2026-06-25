@@ -9,32 +9,19 @@ const LOOK_SENS = 0.002
 
 var _old_move_dir = Vector3.ZERO
 
-var _is_rotating = false
-var _target_angle = 90.0
-var _deg_to_target = 90.0
-var _angle_increm = 2.5
-
-#var debug_count = 0
+var rotation_sync: RotationSynchronizer
 
 @onready var camera = $"Camera3D"
 @onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 
-
-
 func _ready():
-	pass
+	rotation_sync = RotationSynchronizer.new()
+
 
 func _physics_process(delta):
-	if _is_rotating:
-		if _deg_to_target != _target_angle:
-			global_rotate(Vector3.BACK, deg_to_rad(_angle_increm))
-			_deg_to_target += _angle_increm
-		elif _deg_to_target == _target_angle:
-			_is_rotating = false
-
-
-	#if position.y < -50:
-		#position = Vector3(0, 1, 0)
+	if rotation_sync.is_rotating:
+		rotation_sync.step()
+		global_rotate(-rotation_sync.direction, rotation_sync.get_tick_radians())
 
 	
 	var move_dir = Vector3()
@@ -84,20 +71,22 @@ func _physics_process(delta):
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		
 		if event is InputEventMouseMotion:
 			global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
 			camera.rotate_x(-event.relative.y * LOOK_SENS)
-			camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
-			pass
-		if !_is_rotating:
-			if event.is_action_pressed("rotate_map_forward"):
-				_deg_to_target = 0.0
-				_is_rotating = true
-				print("action detected, locked out of rotation!")
+			camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+
+		if !rotation_sync.is_rotating:
+			if event.is_action_pressed("rotate_map_right"):
+				rotation_sync.begin_rotation(Vector3.FORWARD)
+		
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
+		
 		if event.is_action_pressed("quit"):
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	elif event is InputEventMouseButton:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			
