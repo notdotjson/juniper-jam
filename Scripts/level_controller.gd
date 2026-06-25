@@ -1,10 +1,14 @@
 extends Node3D
 
-var rotation_sync: RotationSynchronizer
+var rotsync: RotationSynchronizer
 
 func _ready() -> void:
-	rotation_sync = RotationSynchronizer.new()
+	rotsync = RotationSynchronizer.new()
 
 func _physics_process(_delta: float) -> void:
-	if rotation_sync.is_rotating:
-		global_rotate(rotation_sync.direction, rotation_sync.get_tick_radians())
+	if rotsync.is_rotating:
+		pass
+		#quaternion = quaternion.slerp(rotsync.get_target_quaternion(), _delta * 10.0)
+		#if quaternion.angle_to(rotsync.get_target_quaternion()) < 0.001:
+			#quaternion = rotsync.get_target_quaternion()
+		#quaternion = quaternion.slerp(rotsync.get_target_quaternion(), _delta * 5.0)

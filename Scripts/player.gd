@@ -11,6 +11,8 @@ var old_move_dir = Vector3.ZERO
 
 var rotation_sync: RotationSynchronizer
 
+var rot_lock: bool
+
 @onready var camera = $"Camera3D"
 @onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -21,8 +23,11 @@ func _ready():
 func _physics_process(_delta):
 	if rotation_sync.is_rotating:
 		rotation_sync.step()
-		global_rotate(-rotation_sync.direction, rotation_sync.get_tick_radians())
-		print(global_transform.basis)
+		quaternion *= rotation_sync.get_quaternion()
+		
+		
+		
+
 
 	
 	var move_dir = Vector3()
@@ -72,34 +77,7 @@ func _physics_process(_delta):
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var raw_cam_basis_z = camera.global_transform.basis.z
-		var cam_basis_z := Vector3(round(raw_cam_basis_z.x), round(raw_cam_basis_z.y), round(raw_cam_basis_z.z))
-		if cam_basis_z.length_squared() > 1.0:
-			if cam_basis_z.z > 0:
-				cam_basis_z -= Vector3.MODEL_FRONT
-			elif cam_basis_z.z < 0:
-				cam_basis_z += Vector3.MODEL_FRONT
-			#if cam_basis_z.y < 0:
-				#cam_basis_z += Vector3.MODEL_TOP
-			#elif cam_basis_z.y > 0:
-				#cam_basis_z -= Vector3.MODEL_TOP
 
-		var raw_cam_basis_x = camera.global_transform.basis.x
-		var cam_basis_x := Vector3(round(raw_cam_basis_x.x), round(raw_cam_basis_x.y), round(raw_cam_basis_x.z))
-		if cam_basis_x.length_squared() > 1.0:
-			if cam_basis_x.x > 0:
-				cam_basis_x -= Vector3.MODEL_LEFT
-			if cam_basis_x.x < 0:
-				cam_basis_x += Vector3.MODEL_LEFT
-
-		#var cam_basis_front = (cam_basis * Vector3.MODEL_FRONT).normalized()
-		#var cam_basis_left = (cam_basis * Vector3.MODEL_LEFT).normalized()
-		#var cam_basis_rear = (cam_basis * Vector3.MODEL_REAR).normalized()
-		#var cam_basis_right = (cam_basis * Vector3.MODEL_RIGHT).normalized()
-
-		#var total_cam_basis = (cam_basis_front * cam_basis_left * cam_basis_rear * cam_basis_right).normalized()
-
-		
 		if event is InputEventMouseMotion:
 			global_rotate(Vector3.UP, -event.relative.x * LOOK_SENS)
 			camera.rotate_x(-event.relative.y * LOOK_SENS)
@@ -107,14 +85,19 @@ func _input(event: InputEvent) -> void:
 
 		if !rotation_sync.is_rotating:
 			if event.is_action_pressed("rotate_map_left"):
-				print(cam_basis_z)
-				rotation_sync.begin_rotation(cam_basis_z)
+				rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
+				#rotation_sync.rotate(90.0, Vector3.MODEL_FRONT)
+				pass
+				#rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
 			elif event.is_action_pressed("rotate_map_right"):
-				rotation_sync.begin_rotation(-cam_basis_z)
+				#rotation_sync.begin_rotation(Vector3.MODEL_REAR)
+				pass
 			elif event.is_action_pressed("rotate_map_forward"):
-				rotation_sync.begin_rotation(-cam_basis_x)
+				#rotation_sync.begin_rotation(Vector3.MODEL_RIGHT)
+				pass
 			elif event.is_action_pressed("rotate_map_backward"):
-				rotation_sync.begin_rotation(cam_basis_x)
+				#rotation_sync.begin_rotation(Vector3.MODEL_LEFT)
+				pass
 		
 		if event.is_action_pressed("debug_respawn"):
 			global_position = Vector3(0, 0, 0)
