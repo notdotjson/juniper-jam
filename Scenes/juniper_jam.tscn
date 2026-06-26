@@ -2,12 +2,19 @@
 
 [ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://Scripts/level_controller.gd" id="1_yu335"]
 [ext_resource type="PackedScene" uid="uid://cr20neklve4od" path="res://Models/test_textured.blend" id="2_a8cxy"]
+[ext_resource type="PackedScene" uid="uid://bqj1bku0043xl" path="res://Models/button.blend" id="3_10xx7"]
 [ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://Scenes/playertest.tscn" id="3_lmnfe"]
 
 [node name="Juniper Jam" type="Node3D" unique_id=1019581753]
 
 [node name="Level" type="Node3D" parent="." unique_id=1568383054]
 script = ExtResource("1_yu335")
+
+[node name="button" parent="Level" unique_id=1977207736 instance=ExtResource("3_10xx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -10.5)
+
+[node name="button2" parent="Level" unique_id=1216399715 instance=ExtResource("3_10xx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -24.5)
 
 [node name="test_textured" parent="Level" unique_id=792788029 instance=ExtResource("2_a8cxy")]
 

@@ -18,6 +18,10 @@ script = ExtResource("1_sc2ds")
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=2145228536]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
+[node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/Camera3D" unique_id=588804706]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+enabled = false
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1655571805]
 shape = SubResource("CapsuleShape3D_dhb2h")
 

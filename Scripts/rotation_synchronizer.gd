@@ -1,7 +1,5 @@
 class_name RotationSynchronizer
 
-# adding new functionality to keep track of rotations in the same direction (to avoid accumulating errors)
-
 static var is_rotating := false
 
 static var target: float:
@@ -16,31 +14,53 @@ static var increment: float:
 	
 static var deg_to_target := 0.0
 
-static var tick := 0.0
+static var degrees := 0.0
 
 static var rotation_axis := Vector3.ZERO
 
+static var is_timed := false
+
+static var timer := 0.0
+
+const TARGET_TIME := 5.0
+
 func _init() -> void:
 	target = 90.0
-	increment = 5
+	increment = 2.5
 
-func get_tick_radians() -> float:
-	return deg_to_rad(tick)
+func get_degrees_radians() -> float:
+	return deg_to_rad(degrees)
 
-func get_tick_degrees() -> float:
-	return tick
+func get_degrees() -> float:
+	return degrees
 
-func begin_rotation(axis: Vector3) -> void:
-	deg_to_target = 0.0
-	is_rotating = true
-	rotation_axis = axis
+func get_rotation_axis() -> Vector3:
+	return rotation_axis
+
+func begin_rotation(axis: Vector3, is_interaction: bool = false) -> void:
+	if !is_timed:
+		is_timed = is_interaction
+		deg_to_target = 0.0
+		is_rotating = true
+		rotation_axis = axis
+
+#should only ever be called in player.gd's physics process
+func pass_local_ref(_delta: float, sync: RotationSynchronizer):
+	if is_timed:
+		timer += _delta
+		print(timer)
+		if(timer >= TARGET_TIME):
+			print("target time hit!")
+			is_timed = false
+			timer = 0.0
+			sync.begin_rotation(-sync.get_rotation_axis())
 
 #should only ever be called in player.gd's physics process
 func step() -> void:
 	if is_rotating:
 		if deg_to_target != target:
-			tick = increment
+			degrees = increment
 			deg_to_target += increment
 		elif deg_to_target == target:
-			tick = 0.0
+			degrees = 0.0
 			is_rotating = false

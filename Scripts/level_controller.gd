@@ -7,4 +7,4 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if rotation_sync.is_rotating:
-		global_rotate(rotation_sync.rotation_axis, rotation_sync.get_tick_radians())
+		global_rotate(rotation_sync.get_rotation_axis(), rotation_sync.get_degrees_radians())

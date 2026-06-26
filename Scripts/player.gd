@@ -17,7 +17,8 @@ var timed_rotation := false
 var timer := 0.0
 const TARGET_TIME := 5.0
 
-@onready var camera = $"Camera3D"
+@onready var camera := $"Camera3D"
+@onready var raycast = camera.get_node("RayCast3D") as RayCast3D
 @onready var gravity = -ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
@@ -25,21 +26,20 @@ func _ready():
 
 func _physics_process(_delta):
 
-	#TODO: ditto
-	if(timed_rotation):
-		timer += _delta
-		print(timer, " | ", _delta)
-		if(timer >= TARGET_TIME):
-			print("target time hit!")
-			rotation_sync.begin_rotation(-rotation_sync.rotation_axis)
-			timed_rotation = false
-			timer = 0.0
+	if Input.is_action_just_pressed("interact"):
+		raycast.enabled = true
+		if(raycast.is_colliding()):
+			var target_node = raycast.get_collider() as Node3D
+			if target_node.get_parent().to_string().contains("Button"):
+				rotation_sync.begin_rotation(Vector3.MODEL_FRONT, true)
+			raycast.enabled = false
 
+	rotation_sync.pass_local_ref(_delta, rotation_sync)
 
 	if rotation_sync.is_rotating:
 		rotation_sync.step()
-		global_rotate(-rotation_sync.rotation_axis, rotation_sync.get_tick_radians())
-		if(rotation_sync.get_tick_degrees() == 0.0):
+		global_rotate(-rotation_sync.get_rotation_axis(), rotation_sync.get_degrees_radians())
+		if(rotation_sync.get_degrees() == 0.0):
 			var eul_basis = global_basis.get_euler()
 			print(Vector3(rad_to_deg(eul_basis.x), rad_to_deg(eul_basis.y), rad_to_deg(eul_basis.z)))
 			global_basis = Basis.from_euler(Vector3(eul_basis.x, eul_basis.y, 0.0)) #this is kind of a bandaid fix but it'll ship c:
@@ -73,7 +73,6 @@ func _physics_process(_delta):
 		accel = DECELERATION
 	else:
 		accel = 0
-
 	hvel = hvel.lerp(target, accel * _delta)
 	
 	velocity.x = hvel.x
@@ -124,11 +123,15 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_pressed("rotate_map_backward"):
 				rotation_sync.begin_rotation(cam_basis_x)
 
-			if(!timed_rotation):
-				if event.is_action_pressed("rotate_map_interaction"):
-					rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
-					timed_rotation = true
+			#if event.is_action_pressed("rotate_map_interaction"):
+				#rotation_sync.begin_rotation(Vector3.MODEL_FRONT, true)
 
+			#if(!timed_rotation):
+				#if event.is_action_pressed("rotate_map_interaction"):
+					#rotation_sync.begin_rotation(Vector3.MODEL_FRONT, true)
+					#timed_rotation = true
+
+			#saved for guiding purposes
 			#if event.is_action_pressed("rotate_map_left"):
 			#	rotation_sync.begin_rotation(Vector3.MODEL_FRONT)
 			#elif event.is_action_pressed("rotate_map_right"):
