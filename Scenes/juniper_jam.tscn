@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dtbubbuvxaw8n"]
 
 [ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://Scripts/level_controller.gd" id="1_yu335"]
-[ext_resource type="PackedScene" uid="uid://cr20neklve4od" path="res://Models/test_textured.blend" id="2_a8cxy"]
 [ext_resource type="PackedScene" uid="uid://bqj1bku0043xl" path="res://Models/button.blend" id="3_10xx7"]
 [ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://Scenes/playertest.tscn" id="3_lmnfe"]
 
@@ -11,21 +10,19 @@
 script = ExtResource("1_yu335")
 
 [node name="button" parent="Level" unique_id=1977207736 instance=ExtResource("3_10xx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -10.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.9000001, -4.5)
 
 [node name="button2" parent="Level" unique_id=1216399715 instance=ExtResource("3_10xx7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -24.5)
-
-[node name="test_textured" parent="Level" unique_id=792788029 instance=ExtResource("2_a8cxy")]
 
 [node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3115349, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=911965876]
-transform = Transform3D(1, 0, 0, 0, 0.9525124, 0.3044999, 0, -0.3044999, 0.9525124, 0, 8, 0)
+transform = Transform3D(1, 0, 0, 0, 0.67265, 0.7399608, 0, -0.7399608, 0.67265, 0, 8, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Level" unique_id=701730697]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7944999, 0)
 omni_range = 10.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Level" unique_id=1677281447]
