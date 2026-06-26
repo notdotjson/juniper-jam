@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dtbubbuvxaw8n"]
 
 [ext_resource type="Script" uid="uid://dxyjut3o8bip" path="res://Scripts/level_controller.gd" id="1_yu335"]
+[ext_resource type="PackedScene" uid="uid://bl5rwjgqjra2" path="res://Models/test_tileset/blockout.blend" id="2_10xx7"]
 [ext_resource type="PackedScene" uid="uid://bqj1bku0043xl" path="res://Models/button.blend" id="3_10xx7"]
 [ext_resource type="PackedScene" uid="uid://c7wdnt1xh6ing" path="res://Scenes/playertest.tscn" id="3_lmnfe"]
 
@@ -9,28 +10,40 @@
 [node name="Level" type="Node3D" parent="." unique_id=1568383054]
 script = ExtResource("1_yu335")
 
-[node name="button" parent="Level" unique_id=1977207736 instance=ExtResource("3_10xx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.9000001, -4.5)
+[node name="blockout" parent="Level" unique_id=1412738415 instance=ExtResource("2_10xx7")]
 
-[node name="button2" parent="Level" unique_id=1216399715 instance=ExtResource("3_10xx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -24.5)
+[node name="button_REAR" parent="Level" unique_id=1977207736 instance=ExtResource("3_10xx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4, -1.9000001, 6.5)
+
+[node name="button_FRONT" parent="Level" unique_id=1216399715 instance=ExtResource("3_10xx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 25.5)
+
+[node name="button_LEFT" parent="Level" unique_id=1796029621 instance=ExtResource("3_10xx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 14.5)
+
+[node name="button_RIGHT" parent="Level" unique_id=1629611379 instance=ExtResource("3_10xx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 25.5)
 
 [node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3115349, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.3115349, 19)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=911965876]
 transform = Transform3D(1, 0, 0, 0, 0.67265, 0.7399608, 0, -0.7399608, 0.67265, 0, 8, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Level" unique_id=701730697]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7944999, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7944999, 11)
 omni_range = 10.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="Level" unique_id=1677281447]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, 2)
 omni_range = 10.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Level" unique_id=462048614]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7944999, -19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7945, 19.28549)
+omni_range = 10.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Level" unique_id=694440602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 5.7945, 19.28549)
 omni_range = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=719346815]

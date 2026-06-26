@@ -30,8 +30,14 @@ func _physics_process(_delta):
 		raycast.enabled = true
 		if(raycast.is_colliding()):
 			var target_node = raycast.get_collider() as Node3D
-			if target_node.get_parent().to_string().contains("Button"):
+			if target_node.get_parent().get_parent().to_string().contains("button_FRONT"):
 				rotation_sync.begin_rotation(Vector3.MODEL_FRONT, true)
+			elif target_node.get_parent().get_parent().to_string().contains("button_REAR"):
+				rotation_sync.begin_rotation(Vector3.MODEL_REAR, true)
+			elif target_node.get_parent().get_parent().to_string().contains("button_LEFT"):
+				rotation_sync.begin_rotation(Vector3.MODEL_LEFT, true)
+			elif target_node.get_parent().get_parent().to_string().contains("button_RIGHT"):
+				rotation_sync.begin_rotation(Vector3.MODEL_RIGHT, true)
 			raycast.enabled = false
 
 	rotation_sync.pass_local_ref(_delta, rotation_sync)
