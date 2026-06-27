@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bl5rwjgqjra2"
-path="res://.godot/imported/blockout.blend-43638a9e6c72d8de16a360b956369197.scn"
+uid="uid://c7n2vf4nqdtyc"
+path="res://.godot/imported/Level2.blend-63c2743e8a49df6fedd2f69aecbc567d.scn"
 
 [deps]
 
-source_file="res://Models/test_tileset/blockout.blend"
-dest_files=["res://.godot/imported/blockout.blend-43638a9e6c72d8de16a360b956369197.scn"]
+source_file="res://Models/test_tileset/Level2.blend"
+dest_files=["res://.godot/imported/Level2.blend-63c2743e8a49df6fedd2f69aecbc567d.scn"]
 
 [params]
 
@@ -39,15 +39,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"Material": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://Materials/Wall.tres",
-"use_external/path": "uid://khqrrwym4iag"
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

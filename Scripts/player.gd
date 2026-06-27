@@ -93,6 +93,12 @@ func _physics_process(_delta):
 		old_move_dir = move_dir
 	
 
+func _notification(notif):
+	if notif == NOTIFICATION_WM_MOUSE_EXIT || notif == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		var focus_menu = get_node("../../.././Menus/FocusMenu") as Node
+		focus_menu.visible = true
+
+		
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 
@@ -152,7 +158,11 @@ func _input(event: InputEvent) -> void:
 			global_basis = Basis.from_euler(Vector3(0,0,0))
 		
 		if event.is_action_pressed("quit"):
+			var focus_menu = get_node("../../.././Menus/FocusMenu") as Node
+			focus_menu.visible = true
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	elif event is InputEventMouseButton:
+		var focus_menu = get_node("../../.././Menus/FocusMenu") as Node
+		focus_menu.visible = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
