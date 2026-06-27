@@ -55,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 5, 3.5)
 visible = false
 
 [node name="button_LEFT_LEVEL3" parent="Level" unique_id=1629611379 instance=ExtResource("3_10xx7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5, 22.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5, 23.5)
 
 [node name="Playertest" parent="Level" unique_id=215538288 instance=ExtResource("3_lmnfe")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
