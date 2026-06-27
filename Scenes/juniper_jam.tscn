@@ -62,6 +62,9 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=911965876]
 transform = Transform3D(1, 0, 0, 0, 0.67265, 0.7399608, 0, -0.7399608, 0.67265, 0, 8, 0)
+visible = false
+shadow_enabled = true
+shadow_reverse_cull_face = true
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Level" unique_id=694440602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 5.7945, 19.28549)
