@@ -48,9 +48,9 @@ func begin_rotation(axis: Vector3, is_interaction: bool = false) -> void:
 func pass_local_ref(_delta: float, sync: RotationSynchronizer):
 	if is_timed:
 		timer += _delta
-		print(timer)
+		#print(timer)
 		if(timer >= TARGET_TIME):
-			print("target time hit!")
+			#print("target time hit!")
 			is_timed = false
 			timer = 0.0
 			sync.begin_rotation(-sync.get_rotation_axis())

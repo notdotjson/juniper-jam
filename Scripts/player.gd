@@ -47,7 +47,7 @@ func _physics_process(_delta):
 		global_rotate(-rotation_sync.get_rotation_axis(), rotation_sync.get_degrees_radians())
 		if(rotation_sync.get_degrees() == 0.0):
 			var eul_basis = global_basis.get_euler()
-			print(Vector3(rad_to_deg(eul_basis.x), rad_to_deg(eul_basis.y), rad_to_deg(eul_basis.z)))
+			#print(Vector3(rad_to_deg(eul_basis.x), rad_to_deg(eul_basis.y), rad_to_deg(eul_basis.z)))
 			global_basis = Basis.from_euler(Vector3(eul_basis.x, eul_basis.y, 0.0)) #this is kind of a bandaid fix but it'll ship c:
 
 		#print(global_transform.basis)
@@ -98,7 +98,7 @@ func _notification(notif):
 		var focus_menu = get_node("../../.././Menus/FocusMenu") as Node
 		focus_menu.visible = true
 
-		
+
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 
